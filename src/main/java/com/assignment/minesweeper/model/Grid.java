@@ -28,14 +28,16 @@ public class Grid {
             }
         }
     }
-    
+
     private void placeMines(Random random) {
         int minesPlaced = 0;
         while (minesPlaced < mineCount) {
             int row = random.nextInt(size);
             int col = random.nextInt(size);
-            if (!squares[row][col].isMine()) {
-                squares[row][col].setMine(true);
+            Square sq = squares[row][col];
+            if (!sq.isMine()) {
+                sq.setMine(true);
+                sq.setAdjacentMines(0);
                 setAdjacentMinesCount(row,col);
                 minesPlaced++;
             }
@@ -43,8 +45,8 @@ public class Grid {
     }
 
     private void setAdjacentMinesCount(int mineRow, int mineCol) {
-        for (int i = Math.max(mineRow - 1,0); i <= Math.min(mineRow + 1, size); i++) {
-            for (int j = Math.max(mineCol - 1, 0); j <= Math.min(mineCol + 1, size); j++) {
+        for (int i = Math.max(mineRow - 1,0); i <= Math.min(mineRow + 1, size-1); i++) {
+            for (int j = Math.max(mineCol - 1, 0); j <= Math.min(mineCol + 1, size-1); j++) {
                 Square sq = squares[i][j];
                 if (!sq.isMine()) {
                     sq.setAdjacentMines(sq.getAdjacentMines()+1);
