@@ -1,5 +1,9 @@
 package com.assignment.minesweeper;
 
+import com.assignment.minesweeper.model.Grid;
+
+import java.util.Random;
+
 /**
  * GameController handles user inputs,
  * control the flow of the game based on user actions,
@@ -7,4 +11,5 @@ package com.assignment.minesweeper;
  */
 
 public class GameController {
+
 }

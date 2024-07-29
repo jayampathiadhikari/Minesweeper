@@ -1,7 +1,5 @@
 package com.assignment.minesweeper.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
@@ -10,18 +8,28 @@ public class Grid {
     private final int mineCount;
     private final Square[][] squares;
     private boolean gameOver = false;
-
+    private int[] minePosRows;
+    private int[] minePosCols;
+    private Random random;
 
     public Grid(int size, int mineCount, Random random) {
         this.size = size;
         this.mineCount = mineCount;
         this.squares = new Square[size][size];
-        initializeGrid();
-        placeMines(random);
-//        calculateAdjacency();
+        this.minePosRows = new int[mineCount];
+        this.minePosCols = new int[mineCount];
+        this.random = random;
     }
 
-    private void initializeGrid() {
+    // call this method after object creation
+    void loadGrid () {
+        initializeGrid();
+        placeMines(random);
+        setAdjacentMinesOfGrid();
+    }
+
+    // initialize grid with squares
+    void initializeGrid() {
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
                 squares[row][col] = new Square();
@@ -29,7 +37,8 @@ public class Grid {
         }
     }
 
-    private void placeMines(Random random) {
+    // place mines in random squares
+    void placeMines(Random random) {
         int minesPlaced = 0;
         while (minesPlaced < mineCount) {
             int row = random.nextInt(size);
@@ -38,13 +47,23 @@ public class Grid {
             if (!sq.isMine()) {
                 sq.setMine(true);
                 sq.setAdjacentMines(0);
-                setAdjacentMinesCount(row,col);
+
+                //save mine positions for easy adjacent mine counting
+                minePosRows[minesPlaced] = row;
+                minePosCols[minesPlaced] = col;
                 minesPlaced++;
             }
         }
     }
 
-    private void setAdjacentMinesCount(int mineRow, int mineCol) {
+    // set the mines count of adjacent squares
+    void setAdjacentMinesOfGrid() {
+        for (int i = 0; i < mineCount; i++) {
+            setAdjacentMinesCount(minePosRows[i], minePosCols[i]);
+        }
+    };
+
+    void setAdjacentMinesCount(int mineRow, int mineCol) {
         for (int i = Math.max(mineRow - 1,0); i <= Math.min(mineRow + 1, size-1); i++) {
             for (int j = Math.max(mineCol - 1, 0); j <= Math.min(mineCol + 1, size-1); j++) {
                 Square sq = squares[i][j];

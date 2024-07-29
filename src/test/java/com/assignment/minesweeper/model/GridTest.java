@@ -1,26 +1,33 @@
 package com.assignment.minesweeper.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class GridTest {
 
     @Test
-    public void testGridShouldProperlyBePopulated() {
+    public void testGridInitialization() {
+        Random random = new Random();
+        int gridSize = 9;
+        Grid grid = new Grid(gridSize, 2, random);
+
+        assertNull(grid.getSquares()[0][0]);
+        grid.initializeGrid();
+        assertInstanceOf(Square.class, grid.getSquares()[0][0]);
+    }
+
+    @Test
+    public void testGridShouldProperlyBePopulatedWhenMinesAreAtBottom() {
+        int gridSize = 4;
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(4))
+        Mockito.when(mockRandom.nextInt(gridSize))
                 .thenReturn(3,0, 3, 3);
 
-        int x = mockRandom.nextInt();
-        int y = mockRandom.nextInt();
-        Grid grid = new Grid(4,2, mockRandom );
-        Square square = new Square();
-        assertFalse(square.isMine());
-        assertFalse(square.isUncovered());
-        assertEquals(0, square.getAdjacentMines());
+        Grid grid = new Grid(gridSize,2, mockRandom );
+        grid.loadGrid();
     }
 }
