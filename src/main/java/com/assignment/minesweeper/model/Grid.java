@@ -11,12 +11,13 @@ public class Grid {
     private final Square[][] squares;
     private boolean gameOver = false;
 
-    public Grid(int size, int mineCount) {
+
+    public Grid(int size, int mineCount, Random random) {
         this.size = size;
         this.mineCount = mineCount;
         this.squares = new Square[size][size];
         initializeGrid();
-        placeMines();
+        placeMines(random);
 //        calculateAdjacency();
     }
 
@@ -27,39 +28,16 @@ public class Grid {
             }
         }
     }
-
-    private List<Position> getMinePositions(int noOfMines) {
-        Random random = new Random();
-        List<Position> minePos = new ArrayList<>();
-
+    
+    private void placeMines(Random random) {
         int minesPlaced = 0;
         while (minesPlaced < mineCount) {
-            if (!squares[row][col].isMine()) {
-                squares[row][col].setMine(true);
-                setAdjacentMinesCount(row,col);
-                minesPlaced++;
-
-            }
-        }
-
-        
-        for (int i = 0; i < noOfMines; i++) {
             int row = random.nextInt(size);
             int col = random.nextInt(size);
-            minePos.add(new Position(row, col));
-        }
-        return minePos;
-    }
-
-    private void placeMines(List<Position> minePos) {
-
-        int minesPlaced = 0;
-        while (minesPlaced < mineCount) {
             if (!squares[row][col].isMine()) {
                 squares[row][col].setMine(true);
                 setAdjacentMinesCount(row,col);
                 minesPlaced++;
-
             }
         }
     }
