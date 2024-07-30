@@ -5,7 +5,7 @@ import com.assignment.minesweeper.model.Grid;
 import com.assignment.minesweeper.model.Square;
 import java.util.Scanner;
 
-public class CliView implements View{
+public class CliView implements View {
 
     private final Scanner scanner;
 
@@ -33,7 +33,6 @@ public class CliView implements View{
         displayGrid(grid);
     }
 
-    // max grid size is 26;
     void displayGrid(Grid grid) {
         Square[][] squares = grid.getSquares();
         for (int row = -1; row < squares.length; row++) {
@@ -60,19 +59,17 @@ public class CliView implements View{
         }
     }
 
-    public int[] getUserInput() {
-        System.out.print("Enter row and column to uncover (e.g., '3 4'): ");
-        int row = scanner.nextInt();
-        int col = scanner.nextInt();
-        return new int[]{row, col};
+    public String getUserInput(String message) {
+        System.out.println(message);
+        return scanner.next().trim();
     }
 
     public void showGameOver() {
-        System.out.println("Game Over! You hit a mine.");
+        System.out.println("Oh no, you detonated a mine! Game over.");
     }
 
     public void showWin() {
-        System.out.println("Congratulations! You've uncovered all non-mine squares.");
+        System.out.println("Congratulations, you have won the game!");
     }
 
     public int getGridSize() {

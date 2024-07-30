@@ -11,6 +11,8 @@ public class Grid {
     private final int[] minePosRows;
     private final int[] minePosCols;
     private final Random random;
+    private int uncoveredCount;
+    private final int totalSquares;
 
     public Grid(int size, int mineCount, Random random) {
         this.size = size;
@@ -19,6 +21,7 @@ public class Grid {
         this.minePosRows = new int[mineCount];
         this.minePosCols = new int[mineCount];
         this.random = random;
+        this.totalSquares = size * size;
     }
 
     // call this method after object creation
@@ -47,7 +50,7 @@ public class Grid {
             if (!sq.isMine()) {
                 sq.setMine(true);
                 sq.setAdjacentMines(0);
-
+                System.out.println("mies places " + row + col);
                 //save mine positions for easy adjacent mine counting
                 minePosRows[minesPlaced] = row;
                 minePosCols[minesPlaced] = col;
@@ -73,8 +76,13 @@ public class Grid {
             }
         }
     }
-    
+
+    public int getAdjacentMinesCountOfSquare(int row, int col) {
+        return squares[row][col].getAdjacentMines();
+    }
+
     public boolean uncoverSquare(int row, int col) {
+        // if mine, game over
         if (squares[row][col].isMine()) {
             gameOver = true;
             return false;
@@ -84,11 +92,14 @@ public class Grid {
         }
     }
 
-    private void uncover(int row, int col) {
+    void uncover(int row, int col) {
+        // if already uncovered, return
         if (squares[row][col].isUncovered()) {
             return;
         }
         squares[row][col].setUncovered(true);
+        uncoveredCount++;
+        // if no adjacentMines, search the neighbours
         if (squares[row][col].getAdjacentMines() == 0) {
             for (int i = Math.max(row - 1,0); i <= Math.min(row + 1, size-1); i++) {
                 for (int j = Math.max(col - 1, 0); j <= Math.min(col + 1, size-1); j++) {
@@ -103,14 +114,15 @@ public class Grid {
     }
 
     public boolean isWin() {
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                if (!squares[row][col].isMine() && !squares[row][col].isUncovered()) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return uncoveredCount + mineCount == totalSquares;
+//        for (int row = 0; row < size; row++) {
+//            for (int col = 0; col < size; col++) {
+//                if (!squares[row][col].isMine() && !squares[row][col].isUncovered()) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
     }
 
     public Square[][] getSquares() {
