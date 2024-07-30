@@ -3,10 +3,18 @@ package com.assignment.minesweeper;
 
 public class Utils {
     public static String convertToLetter(int number) {
-        if (number < 0 || number > 25) {
-            throw new IllegalArgumentException("Number must be between 0 and 25");
+        if (number < 0) {
+            throw new IllegalArgumentException("Number must be non-negative");
         }
-        char chr = (char) (number + 'A');
-        return String.valueOf(chr);
+
+        StringBuilder result = new StringBuilder();
+
+        while (number >= 0) {
+            int remainder = number % 26;
+            result.insert(0, (char) (remainder + 'A'));
+            number = (number / 26) - 1;
+        }
+
+        return result.toString();
     }
 }

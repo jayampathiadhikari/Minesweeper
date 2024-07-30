@@ -3,8 +3,6 @@ package com.assignment.minesweeper.view;
 import com.assignment.minesweeper.Utils;
 import com.assignment.minesweeper.model.Grid;
 import com.assignment.minesweeper.model.Square;
-
-
 import java.util.Scanner;
 
 public class CliView implements View{
@@ -32,7 +30,7 @@ public class CliView implements View{
         } else {
             displayMessage("Here is your minefield:");
         }
-
+        displayGrid(grid);
     }
 
     // max grid size is 26;
