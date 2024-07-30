@@ -3,9 +3,10 @@ package com.assignment.minesweeper.view;
 import com.assignment.minesweeper.model.Grid;
 
 public interface View {
-    void printMessage(String message);
+    void displayWelcome();
 
-    void printGrid(Grid grid);
+    void displayGrid(Grid grid, boolean updated);
 
-    void printGrid(Grid grid, boolean revealMines);
+    void displayMessage(String message);
+
 }

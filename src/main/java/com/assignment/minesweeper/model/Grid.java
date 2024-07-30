@@ -22,7 +22,7 @@ public class Grid {
     }
 
     // call this method after object creation
-    void loadGrid () {
+    public void loadGrid () {
         initializeGrid();
         placeMines(random);
         setAdjacentMinesOfGrid();
@@ -74,16 +74,16 @@ public class Grid {
         }
     }
 
-    private void calculateAdjacency() {
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                if (!squares[row][col].isMine()) {
-                    int adjacentMines = countAdjacentMines(row, col);
-                    squares[row][col].setAdjacentMines(adjacentMines);
-                }
-            }
-        }
-    }
+//    private void calculateAdjacency() {
+//        for (int row = 0; row < size; row++) {
+//            for (int col = 0; col < size; col++) {
+//                if (!squares[row][col].isMine()) {
+//                    int adjacentMines = countAdjacentMines(row, col);
+//                    squares[row][col].setAdjacentMines(adjacentMines);
+//                }
+//            }
+//        }
+//    }
 
     private int countAdjacentMines(int row, int col) {
         int mines = 0;
@@ -139,6 +139,4 @@ public class Grid {
     public Square[][] getSquares() {
         return squares;
     }
-
-
 }

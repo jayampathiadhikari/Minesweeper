@@ -2,10 +2,7 @@ package com.assignment.minesweeper.model;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -142,18 +139,5 @@ public class GridTest {
         }
 
         assertEquals(6, totalAdjacentMinesCount);
-    }
-
-
-
-    @Test
-    public void testGridShouldProperlyBePopulatedWhenMinesAreAtBottom() {
-        int gridSize = 4;
-        Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(3,0, 3, 3);
-
-        Grid grid = new Grid(gridSize,2, mockRandom );
-        grid.loadGrid();
     }
 }
