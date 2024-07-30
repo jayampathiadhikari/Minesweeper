@@ -8,9 +8,9 @@ public class Grid {
     private final int mineCount;
     private final Square[][] squares;
     private boolean gameOver = false;
-    private int[] minePosRows;
-    private int[] minePosCols;
-    private Random random;
+    private final int[] minePosRows;
+    private final int[] minePosCols;
+    private final Random random;
 
     public Grid(int size, int mineCount, Random random) {
         this.size = size;
