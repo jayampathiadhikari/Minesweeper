@@ -73,30 +73,7 @@ public class Grid {
             }
         }
     }
-
-//    private void calculateAdjacency() {
-//        for (int row = 0; row < size; row++) {
-//            for (int col = 0; col < size; col++) {
-//                if (!squares[row][col].isMine()) {
-//                    int adjacentMines = countAdjacentMines(row, col);
-//                    squares[row][col].setAdjacentMines(adjacentMines);
-//                }
-//            }
-//        }
-//    }
-
-    private int countAdjacentMines(int row, int col) {
-        int mines = 0;
-        for (int i = row - 1; i <= row + 1; i++) {
-            for (int j = col - 1; j <= col + 1; j++) {
-                if (i >= 0 && i < size && j >= 0 && j < size && squares[i][j].isMine()) {
-                    mines++;
-                }
-            }
-        }
-        return mines;
-    }
-
+    
     public boolean uncoverSquare(int row, int col) {
         if (squares[row][col].isMine()) {
             gameOver = true;
@@ -108,13 +85,13 @@ public class Grid {
     }
 
     private void uncover(int row, int col) {
-        if (row < 0 || row >= size || col < 0 || col >= size || squares[row][col].isUncovered()) {
+        if (squares[row][col].isUncovered()) {
             return;
         }
         squares[row][col].setUncovered(true);
         if (squares[row][col].getAdjacentMines() == 0) {
-            for (int i = row - 1; i <= row + 1; i++) {
-                for (int j = col - 1; j <= col + 1; j++) {
+            for (int i = Math.max(row - 1,0); i <= Math.min(row + 1, size-1); i++) {
+                for (int j = Math.max(col - 1, 0); j <= Math.min(col + 1, size-1); j++) {
                     uncover(i, j);
                 }
             }
