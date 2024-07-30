@@ -115,17 +115,13 @@ public class Grid {
 
     public boolean isWin() {
         return uncoveredCount + mineCount == totalSquares;
-//        for (int row = 0; row < size; row++) {
-//            for (int col = 0; col < size; col++) {
-//                if (!squares[row][col].isMine() && !squares[row][col].isUncovered()) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
     }
 
     public Square[][] getSquares() {
         return squares;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

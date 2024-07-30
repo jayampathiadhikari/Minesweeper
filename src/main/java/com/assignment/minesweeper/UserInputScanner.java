@@ -13,10 +13,6 @@ public class UserInputScanner implements AutoCloseable {
         return scanner.next().trim();
     }
 
-    public int getUserInputAsInt() {
-        return scanner.nextInt();
-    }
-
     @Override
     public void close() throws Exception {
         scanner.close();
