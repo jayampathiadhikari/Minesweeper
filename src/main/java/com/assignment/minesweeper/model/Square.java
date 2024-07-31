@@ -1,36 +1,15 @@
 package com.assignment.minesweeper.model;
 
-/**
- * POJO for keeping square information.
- * Therefore, no need of unitTests
- */
+public interface Square {
+    boolean isMine();
 
-public class Square {
-    private boolean isMine;
-    private boolean isUncovered;
-    private int adjacentMines;
+    void setMine(boolean isMine);
 
-    public boolean isMine() {
-        return isMine;
-    }
+    boolean isUncovered();
 
-    public void setMine(boolean isMine) {
-        this.isMine = isMine;
-    }
+    void setUncovered(boolean isUncovered);
 
-    public boolean isUncovered() {
-        return isUncovered;
-    }
+    int getAdjacentMines();
 
-    public void setUncovered(boolean isUncovered) {
-        this.isUncovered = isUncovered;
-    }
-
-    public int getAdjacentMines() {
-        return adjacentMines;
-    }
-
-    public void setAdjacentMines(int adjacentMines) {
-        this.adjacentMines = adjacentMines;
-    }
+    void setAdjacentMines(int adjacentMines);
 }

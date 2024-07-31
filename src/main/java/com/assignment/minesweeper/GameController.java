@@ -1,7 +1,7 @@
 package com.assignment.minesweeper;
 
+import com.assignment.minesweeper.model.GameGrid;
 import com.assignment.minesweeper.model.Grid;
-import com.assignment.minesweeper.view.CliView;
 import com.assignment.minesweeper.view.View;
 
 import java.util.Random;
@@ -33,7 +33,7 @@ public class GameController {
         int gridSize = getValidGridSize();
         int minesCount = getValidMinesCount(gridSize);
 
-        this.grid = new Grid(gridSize, minesCount, random);
+        this.grid = new GameGrid(gridSize, minesCount, random);
         grid.loadGrid();
     }
 
@@ -46,7 +46,7 @@ public class GameController {
                 boolean safeMove = grid.uncoverSquare(coordinates[0], coordinates[1]);
                 if (safeMove) {
                     int adjacentMines = grid.getAdjacentMinesCountOfSquare(coordinates[0], coordinates[1]);
-                    view.displayMessage("This square contains "+ adjacentMines +" adjacent mines.");
+                    view.displayMessage("This square contains " + adjacentMines + " adjacent mines.");
                     view.displayGrid(grid, true);
                 } else {
                     view.displayMessage("Oh no, you detonated a mine! Game over.");
@@ -59,16 +59,22 @@ public class GameController {
             }
             view.displayMessage("Play again ? press (y/n) and then enter... ");
 
-            while (true) {
-                String userInput = userInputScanner.getUserInputAsString();
-                if (userInput.equalsIgnoreCase("y")) {
-                    break;
-                } else if (userInput.equalsIgnoreCase("n")){
-                    view.displayMessage("Quitting Game...");
-                    exit(0);
-                }
+//            boolean playAgain = false;
+//            while (true) {
+//                String userInput = userInputScanner.getUserInputAsString();
+//                if (userInput.equalsIgnoreCase("y")) {
+//                    playAgain = true;
+//                    break;
+//                } else if (userInput.equalsIgnoreCase("n")) {
+//                    view.displayMessage("Quitting Game...");
+//                    break;
+//                }
+//            }
+            if (isRestart()) {
+                resetGame();
+            } else {
+                break;
             }
-            resetGame();
         }
     }
 
@@ -77,7 +83,22 @@ public class GameController {
         initializeGame();
     }
 
-    private int getValidGridSize() {
+    boolean isRestart() {
+        boolean playAgain = false;
+        while (true) {
+            String userInput = userInputScanner.getUserInputAsString();
+            if (userInput.equalsIgnoreCase("y")) {
+                playAgain = true;
+                break;
+            } else if (userInput.equalsIgnoreCase("n")) {
+                view.displayMessage("Quitting Game...");
+                break;
+            }
+        }
+        return playAgain;
+    }
+
+    int getValidGridSize() {
         while (true) {
             view.displayMessage("Enter the size of the grid (e.g. 4 for a 4x4 grid): ");
             try {
@@ -91,13 +112,13 @@ public class GameController {
                         return gridSize;
                     }
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 view.displayMessage("Incorrect input.");
             }
         }
     }
 
-    private int getValidMinesCount(int gridSize) {
+    int getValidMinesCount(int gridSize) {
         while (true) {
             view.displayMessage("Enter the number of mines to place on the grid (maximum is 35% of the total squares):");
             try {
@@ -106,7 +127,7 @@ public class GameController {
 
                 if (minesCount > 0 && minesCount <= maxMines) {
                     return minesCount;
-                } else if (minesCount == 0){
+                } else if (minesCount == 0) {
                     view.displayMessage("There must be at least 1 mine.");
                 } else {
                     view.displayMessage("Maximum number is 35% of total squares.");
@@ -118,13 +139,13 @@ public class GameController {
         }
     }
 
-    private int[] getValidSquareToReveal() {
+    int[] getValidSquareToReveal() {
         while (true) {
             view.displayMessage("Select a square to reveal (e.g. A1): ");
             try {
                 String input = userInputScanner.getUserInputAsString();
                 int[] squarePos = Utils.convertStringToIntArray(input);
-                if (!(0<=squarePos[0] && squarePos[0] <= grid.getSize()-1) || !(0<=squarePos[1] && squarePos[1] <= grid.getSize()-1)){
+                if (!(0 <= squarePos[0] && squarePos[0] <= grid.getSize() - 1) || !(0 <= squarePos[1] && squarePos[1] <= grid.getSize() - 1)) {
                     view.displayMessage("Incorrect input.");
                 } else {
                     return squarePos;
@@ -133,6 +154,6 @@ public class GameController {
                 view.displayMessage("Incorrect input.");
             }
         }
-    };
+    }
 }
 

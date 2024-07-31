@@ -35,7 +35,7 @@ public class Utils {
         int letterValue = convertLetterPartToInt(letterPart);
         int numberValue = Integer.parseInt(numberPart);
 
-        return new int[]{letterValue, numberValue-1};
+        return new int[]{letterValue, numberValue - 1};
     }
 
     private static int convertLetterPartToInt(String letterPart) {

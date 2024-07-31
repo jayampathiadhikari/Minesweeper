@@ -1,5 +1,6 @@
 package com.assignment.minesweeper.view;
 
+import com.assignment.minesweeper.model.GameGrid;
 import com.assignment.minesweeper.model.Grid;
 import org.junit.jupiter.api.Test;
 import java.util.Random;
@@ -30,7 +31,7 @@ public class CliViewTest {
     @Test
     public void testDisplayGridForSize3() {
         int gridSize = 3;
-        Grid grid = new Grid(gridSize, 2, random);
+        Grid grid = new GameGrid(gridSize, 2, random);
         grid.loadGrid();
 
         CliView cliView = new CliView();
@@ -48,7 +49,7 @@ public class CliViewTest {
     @Test
     public void testDisplayGridForSize10() {
         int gridSize = 10;
-        Grid grid = new Grid(gridSize, 2, random);
+        Grid grid = new GameGrid(gridSize, 2, random);
         grid.loadGrid();
 
         CliView cliView = new CliView();
@@ -77,7 +78,7 @@ public class CliViewTest {
         Mockito.when(mockRandom.nextInt(gridSize))
                 .thenReturn(0,0, 8, 4, 6, 3);
 
-        Grid grid = new Grid(gridSize, 3, mockRandom);
+        Grid grid = new GameGrid(gridSize, 3, mockRandom);
         grid.loadGrid();
 
         // uncover some squares

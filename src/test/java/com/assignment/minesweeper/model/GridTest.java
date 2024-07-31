@@ -2,9 +2,11 @@ package com.assignment.minesweeper.model;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class GridTest {
 
@@ -12,7 +14,7 @@ public class GridTest {
     public void testGridInitialization() {
         Random random = new Random();
         int gridSize = 9;
-        Grid grid = new Grid(gridSize, 2, random);
+        GameGrid grid = new GameGrid(gridSize, 2, random);
 
         assertNull(grid.getSquares()[0][0]);
         grid.initializeGrid();
@@ -23,11 +25,11 @@ public class GridTest {
     public void testPlaceMinesForSmallGrid() {
         Random random = new Random();
         int gridSize = 4;
-        Grid grid = new Grid(gridSize, 2, random);
+        GameGrid grid = new GameGrid(gridSize, 2, random);
 
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(3,0, 3, 3);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(3, 0, 3, 3);
         grid.initializeGrid();
 
         assertFalse(grid.getSquares()[3][0].isMine());
@@ -43,11 +45,11 @@ public class GridTest {
     public void testPlaceMinesForLargeGrid() {
         Random random = new Random();
         int gridSize = 9;
-        Grid grid = new Grid(gridSize, 2, random);
+        GameGrid grid = new GameGrid(gridSize, 2, random);
 
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(3,0, 3, 3);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(3, 0, 3, 3);
         grid.initializeGrid();
 
         assertFalse(grid.getSquares()[3][0].isMine());
@@ -63,11 +65,11 @@ public class GridTest {
     public void testAdjacentMinesOfGridWhenAMineIsPlaced() {
         Random random = new Random();
         int gridSize = 9;
-        Grid grid = new Grid(gridSize, 1, random);
+        GameGrid grid = new GameGrid(gridSize, 1, random);
 
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(4,4);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(4, 4);
 
         grid.initializeGrid();
         grid.placeMines(mockRandom);
@@ -89,11 +91,11 @@ public class GridTest {
     public void testSetAdjacentMinesOfGridWhenMinesAreAtBottomLeftAndRight() {
         Random random = new Random();
         int gridSize = 9;
-        Grid grid = new Grid(gridSize, 2, random);
+        GameGrid grid = new GameGrid(gridSize, 2, random);
 
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(8,0, 8, 8);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(8, 0, 8, 8);
 
         grid.initializeGrid();
         grid.placeMines(mockRandom);
@@ -104,8 +106,8 @@ public class GridTest {
 
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-               Square sq = grid.getSquares()[i][j];
-               totalAdjacentMinesCount += sq.getAdjacentMines();
+                Square sq = grid.getSquares()[i][j];
+                totalAdjacentMinesCount += sq.getAdjacentMines();
             }
         }
 
@@ -116,11 +118,11 @@ public class GridTest {
     public void testSetAdjacentMinesOfGridWhenMinesAreAdjacent() {
         Random random = new Random();
         int gridSize = 9;
-        Grid grid = new Grid(gridSize, 2, random);
+        GameGrid grid = new GameGrid(gridSize, 2, random);
 
         Random mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextInt(gridSize))
-                .thenReturn(8,0, 8, 1);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(8, 0, 8, 1);
 
         grid.initializeGrid();
         grid.placeMines(mockRandom);
@@ -133,11 +135,28 @@ public class GridTest {
 
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-               Square sq = grid.getSquares()[i][j];
-               totalAdjacentMinesCount += sq.getAdjacentMines();
+                Square sq = grid.getSquares()[i][j];
+                totalAdjacentMinesCount += sq.getAdjacentMines();
             }
         }
 
         assertEquals(6, totalAdjacentMinesCount);
+    }
+
+    @Test
+    public void testUncoverSquare() {
+        Random random = new Random();
+        int gridSize = 4;
+        GameGrid grid = new GameGrid(gridSize, 2, random);
+
+        Random mockRandom = Mockito.mock(Random.class);
+        when(mockRandom.nextInt(gridSize))
+                .thenReturn(2, 0, 3, 2);
+
+        grid.initializeGrid();
+        grid.placeMines(mockRandom);
+        grid.setAdjacentMinesOfGrid();
+        grid.uncoverSquare(1, 0);
+        grid.getSquares();
     }
 }
