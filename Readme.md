@@ -84,7 +84,7 @@ Ensure you have Java installed on your system. You can check by running: `java -
 
 
 # Design and Assumptions
-- The grid is a square (NxN) with a minimum size of 2x2 and a maximum size of 10x10.
+- The grid is a square (NxN) with a minimum size of 3x3 and a maximum size of 10x10.
 - The number of mines should be at least 1 and at most 35% of the total squares.
 - The game starts with user input for grid size and mine count, followed by random mine placement.
 - The user selects squares to reveal by entering coordinates (e.g., A1).
