@@ -38,7 +38,7 @@ Ensure you have Java installed on your system. You can check by running: `java -
 
 # Project Structure
 
-## src/
+## src/main
 ### com/assignment/minesweeper
 - **MineSweeperGame.java**: The main entry point of the application. Initializes and starts the game.
   - `main(String[] args)`: Starts the Minesweeper game.
@@ -82,6 +82,9 @@ Ensure you have Java installed on your system. You can check by running: `java -
    - `displayGrid(Grid grid, boolean updated);`: Display the given grid on console.
    - `displayMessage(String message)`: Display a given message on console.
 
+
+## src/test
+  - Contains Unit and End-to-End tests
 
 # Design and Assumptions
 - The grid is a square (NxN) with a minimum size of 3x3 and a maximum size of 10x10.
