@@ -3,15 +3,8 @@ package com.assignment.minesweeper.view;
 import com.assignment.minesweeper.Utils;
 import com.assignment.minesweeper.model.Grid;
 import com.assignment.minesweeper.model.Square;
-import java.util.Scanner;
 
 public class CliView implements View {
-
-    private final Scanner scanner;
-
-    public CliView() {
-        this.scanner = new Scanner(System.in);
-    }
 
     @Override
     public void displayMessage(String message) {
@@ -57,28 +50,5 @@ public class CliView implements View {
             }
             System.out.println(stringBuilder);
         }
-    }
-
-    public String getUserInput(String message) {
-        System.out.println(message);
-        return scanner.next().trim();
-    }
-
-    public void showGameOver() {
-        System.out.println("Oh no, you detonated a mine! Game over.");
-    }
-
-    public void showWin() {
-        System.out.println("Congratulations, you have won the game!");
-    }
-
-    public int getGridSize() {
-        System.out.print("Enter the size of the grid (e.g. 4 for a 4x4 grid): ");
-        return scanner.nextInt();
-    }
-
-    public int getMineCount() {
-        System.out.print("Enter the number of mines to place on the grid (maximum is 35% of the total squares):");
-        return scanner.nextInt();
     }
 }

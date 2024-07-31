@@ -21,7 +21,7 @@ public class GameController {
     private final Random random;
     private final UserInputScanner userInputScanner;
 
-    public GameController(CliView view, UserInputScanner userInputScanner, Random random) {
+    public GameController(View view, UserInputScanner userInputScanner, Random random) {
         this.view = view;
         this.random = random;
         this.userInputScanner = userInputScanner;
