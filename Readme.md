@@ -41,24 +41,20 @@ Ensure you have Java installed on your system. You can check by running: `java -
 ## src/
 ### com/assignment/minesweeper
 - **MineSweeperGame.java**: The main entry point of the application. Initializes and starts the game.
-  - Methods:
   - `main(String[] args)`: Starts the Minesweeper game.
 
 
 - **GameController.java**: Handles the game logic, manages user inputs, and updates the game state.
-  - Methods:
   - `GameController(View view, UserInputScanner userInputScanner, Random random)`: Constructor that takes View, UserInputScanner and a Random object as parameters.
   - `initializeGame()`: Initializes the game, prompts user for input, and loads the grid.
   - `runGame()`: Starts the loop to run the game.
 
 
 - **UserInputScanner.java**: Handles user input from the command line.
-   - Methods:
    - `getUserInputAsString()`: Prompts the user for input and returns the input as a string.
 
 ### com/assignment/minesweeper/model
 - **GameGrid.java**: Represents the game grid, including initialization, mine placement, and revealing squares.
-  - Methods:
   - `GameGrid(int size, int mineCount, Random random)`: Constructor that initializes the grid with the given size and mine count.
   - `loadGrid()`: Loads the grid according to parameters passed when constructing the object. Should call just after object creation.
   - `getAdjacentMinesCountOfSquare(int row, int col)`: Returns the number of adjacent mines for each square.
@@ -71,7 +67,6 @@ Ensure you have Java installed on your system. You can check by running: `java -
    
 
 - **GameSquare.java**: Represents a single square in the grid, including its state (uncovered, mine) and adjacent mine count.
-   - Methods:
    - `setMine(boolean isMine)`: Sets the square as a mine.
    - `isMine()`: Returns true if the square is a mine.
    - `setAdjacentMines(int adjacentMines)`: Sets the adjacent mine count for the square.
@@ -83,7 +78,6 @@ Ensure you have Java installed on your system. You can check by running: `java -
 
 ### com/assignment/minesweeper/view
 - **CliView.java**: Responsible for displaying the game to the user.
-   - Methods:
    - `displayWelcome()`: Display the welcome message on console.
    - `displayGrid(Grid grid, boolean updated);`: Display the given grid on console.
    - `displayMessage(String message)`: Display a given message on console.
