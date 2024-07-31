@@ -42,6 +42,27 @@ public class GameControllerTest {
     }
 
     @Test
+    public void testIsRestartWhenYes() {
+        when(userInputScanner.getUserInputAsString()).thenReturn("a","1", "y");
+        gameController = new GameController(view, userInputScanner, random);
+        boolean playAgain = gameController.isRestart();
+
+        verify(view, times(2)).displayMessage("Incorrect input.");
+        assertEquals(true, playAgain);
+    }
+
+    @Test
+    public void testIsRestartWhenNo() {
+        when(userInputScanner.getUserInputAsString()).thenReturn("a","1", "n");
+        gameController = new GameController(view, userInputScanner, random);
+        boolean playAgain = gameController.isRestart();
+
+        verify(view, times(2)).displayMessage("Incorrect input.");
+        verify(view).displayMessage("Quitting Game...");
+        assertEquals(false, playAgain);
+    }
+
+    @Test
     public void testGetValidGridSize() {
         when(userInputScanner.getUserInputAsString()).thenReturn("a","2", "11", "abc", "4");
         gameController = new GameController(view, userInputScanner, random);

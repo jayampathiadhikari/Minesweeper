@@ -6,9 +6,6 @@ import com.assignment.minesweeper.view.View;
 
 import java.util.Random;
 
-import static java.lang.System.exit;
-
-
 /**
  * GameController handles user inputs,
  * control the flow of the game based on user actions,
@@ -57,19 +54,7 @@ public class GameController {
                 view.displayGrid(grid, true);
                 view.displayMessage("Congratulations, you have won the game!");
             }
-            view.displayMessage("Play again ? press (y/n) and then enter... ");
 
-//            boolean playAgain = false;
-//            while (true) {
-//                String userInput = userInputScanner.getUserInputAsString();
-//                if (userInput.equalsIgnoreCase("y")) {
-//                    playAgain = true;
-//                    break;
-//                } else if (userInput.equalsIgnoreCase("n")) {
-//                    view.displayMessage("Quitting Game...");
-//                    break;
-//                }
-//            }
             if (isRestart()) {
                 resetGame();
             } else {
@@ -86,6 +71,7 @@ public class GameController {
     boolean isRestart() {
         boolean playAgain = false;
         while (true) {
+            view.displayMessage("Play again ? press (y/n) and then enter... ");
             String userInput = userInputScanner.getUserInputAsString();
             if (userInput.equalsIgnoreCase("y")) {
                 playAgain = true;
@@ -93,6 +79,8 @@ public class GameController {
             } else if (userInput.equalsIgnoreCase("n")) {
                 view.displayMessage("Quitting Game...");
                 break;
+            } else {
+                view.displayMessage("Incorrect input.");
             }
         }
         return playAgain;
